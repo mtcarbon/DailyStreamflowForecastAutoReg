@@ -3,8 +3,8 @@ import numpy as np
 
 import os
 root_path = os.path.dirname(os.path.abspath('__file__'))
-root_path = os.path.abspath(os.path.join(root_path, os.path.pardir))
-root_path = os.path.abspath(os.path.join(root_path, os.path.pardir))
+#root_path = os.path.abspath(os.path.join(root_path, os.path.pardir))
+#root_path = os.path.abspath(os.path.join(root_path, os.path.pardir))
 print(10*'-'+' Current Path: {}'.format(root_path))
 import sys
 sys.path.append(root_path+'/tools/')

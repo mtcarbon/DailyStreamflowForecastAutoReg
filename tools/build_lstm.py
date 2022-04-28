@@ -5,7 +5,7 @@ import numpy as np
 import shutil
 
 import os
-# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  
+# os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 # os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 import tensorflow as tf
@@ -20,7 +20,7 @@ from plot_utils import plot_rela_pred,plot_history,plot_error_distribution
 @tf.function
 def custom_loss(y_true,y_pred):
     return tf.math.reduce_mean(tf.math.divide(tf.math.square(y_pred-y_true),tf.math.multiply(tf.math.reduce_mean(y_true),tf.math.reduce_mean(y_pred))))
-    
+
 
 def my_lstm(path,pattern,HU1,DR1,
     HL=1,
@@ -34,17 +34,17 @@ def my_lstm(path,pattern,HU1,DR1,
     loss='mean_squared_error',
     wavelet=None):
     if wavelet == None and MODEL_ID==None:
-        data_path = path + 'data\\'+pattern+'\\'
-        model_path = path+'projects\\lstm-models-history\\'+pattern+'\\history\\'
+        data_path = path + 'data/'+pattern+'/'
+        model_path = path+'projects/lstm-models-history/'+pattern+'/history/'
     elif wavelet==None and MODEL_ID!=None:
-        data_path = path + 'data\\'+pattern+'\\'
-        model_path = path+'projects\\lstm-models-history\\'+pattern+'\\history\\s'+str(MODEL_ID)+'\\'
+        data_path = path + 'data/'+pattern+'/'
+        model_path = path+'projects/lstm-models-history/'+pattern+'/history/s'+str(MODEL_ID)+'/'
     elif wavelet!=None and MODEL_ID==None:
-        data_path = path + 'data\\'+wavelet+'-'+str(lev)+'\\'+pattern+'\\'
-        model_path = path+'projects\\lstm-models-history\\'+wavelet+'-'+str(lev)+'\\'+pattern+'\\history\\'
+        data_path = path + 'data/'+wavelet+'-'+str(lev)+'/'+pattern+'/'
+        model_path = path+'projects/lstm-models-history/'+wavelet+'-'+str(lev)+'/'+pattern+'/history/'
     elif wavelet!=None and MODEL_ID!=None:
-        data_path = path + 'data\\'+wavelet+'-'+str(lev)+'\\'+pattern+'\\'
-        model_path = path+'projects\\lstm-models-history\\'+wavelet+'-'+str(lev)+'\\'+pattern+'\\history\\s'+str(MODEL_ID)+'\\'
+        data_path = path + 'data/'+wavelet+'-'+str(lev)+'/'+pattern+'/'
+        model_path = path+'projects/lstm-models-history/'+wavelet+'-'+str(lev)+'/'+pattern+'/history/s'+str(MODEL_ID)+'/'
 
     # 1.Import the sampled normalized data set from disk
     if MODEL_ID==None:
@@ -150,10 +150,10 @@ def my_lstm(path,pattern,HU1,DR1,
                 metrics=['mean_absolute_error','mean_squared_error',custom_loss])
         return model
     # set model's parameters restore path
-    cp_path = model_path+MODEL_NAME+'\\'
+    cp_path = model_path+MODEL_NAME+'/'
     if not os.path.exists(cp_path):
         os.makedirs(cp_path)
-    checkpoint_path = model_path+MODEL_NAME+'\\cp.h5' #restore only the latest checkpoint after every update
+    checkpoint_path = model_path+MODEL_NAME+'/cp.h5' #restore only the latest checkpoint after every update
     # checkpoint_path = model_path+'cp-{epoch:04d}.ckpt' #restore the checkpoint every period=x epoch
     checkpoint_dir = os.path.dirname(checkpoint_path)
     print('checkpoint dir:{}'.format(checkpoint_dir))
@@ -186,7 +186,7 @@ def my_lstm(path,pattern,HU1,DR1,
     else:
         warm_dir = 'LSTM-S'+str(MODEL_ID)+'-LR['+str(LEARNING_RATE)+']-HU'+str(HIDDEN_UNITS)+'-EPS['+str(INITIAL_EPOCH)+']-BS['+str(BATCH_SIZE)+']-DR'+str(DROP_RATE)+'-DC['+str(DECAY_RATE)+']-SEED['+str(SEED)+']'
     print(os.path.exists(model_path+warm_dir))
-    if  RE_TRAIN: 
+    if  RE_TRAIN:
         print('retrain the model')
         if EARLY_STOPING:
             history2 = model.fit(train_x,train_y,epochs=EPOCHS,batch_size=BATCH_SIZE ,validation_data=(dev_x,dev_y),verbose=1,
@@ -204,7 +204,7 @@ def my_lstm(path,pattern,HU1,DR1,
     elif len(files)==0:
         if os.path.exists(model_path+warm_dir) and WARM_UP:
             print('WARM UP FROM EPOCH '+str(INITIAL_EPOCH))
-            warm_path=model_path+warm_dir+'\\cp.ckpt'
+            warm_path=model_path+warm_dir+'/cp.ckpt'
             model.load_weights(warm_path)
             if EARLY_STOPING:
                 history2 = model.fit(train_x,train_y,initial_epoch=INITIAL_EPOCH,epochs=EPOCHS,batch_size=BATCH_SIZE ,validation_data=(dev_x,dev_y),verbose=1,

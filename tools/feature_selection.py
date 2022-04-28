@@ -31,6 +31,8 @@ decomposers=['db2-1','db2-2','db2-3',
 'coif3-1','coif3-2','coif3-3',
 'haar-1','haar-2','haar-3','vmd','eemd']
 
+#decomposers=['db10-3', 'vmd', 'eemd']
+
 selected_subsignals={}
 for station in stations:
     selected_={}
