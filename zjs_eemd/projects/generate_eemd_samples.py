@@ -20,28 +20,28 @@ with open(root_path+'/results_analyze/results/selected_subsignals.json') as hand
 input_dict=dictdump['zjs']
 
 for leading_time in [1,3,5,7]:
-    # gen_multi_models_hindcast(
-    #     path=root_path+'/zjs_eemd/data/',
-    #     decomposer='eemd',
-    #     lev=12,
-    #     test_len=657,
-    #     lags_dict=variables['lags_dict'],
-    #     leading_time=leading_time,
-    #     wavelet=None,
-    # )
+    gen_multi_models_hindcast(
+        path=root_path+'/zjs_eemd/data/',
+        decomposer='eemd',
+        lev=12,
+        test_len=657,
+        lags_dict=variables['lags_dict'],
+        leading_time=leading_time,
+        wavelet=None,
+    )
 
 
-    # gen_multi_models_forecast(
-    #     path=root_path+'/zjs_eemd/data/',
-    #     decomposer='eemd',
-    #     lev=12,
-    #     test_len=657,
-    #     start_id=5261,
-    #     stop_id=6574,
-    #     lags_dict=variables['lags_dict'],
-    #     leading_time=leading_time,
-    #     wavelet=None,
-    # )
+    gen_multi_models_forecast(
+        path=root_path+'/zjs_eemd/data/',
+        decomposer='eemd',
+        lev=12,
+        test_len=657,
+        start_id=5261,
+        stop_id=6574,
+        lags_dict=variables['lags_dict'],
+        leading_time=leading_time,
+        wavelet=None,
+    )
 
     gen_one_model_forecast(
         path=root_path+'/zjs_eemd/data/',
